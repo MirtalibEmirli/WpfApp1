@@ -4,15 +4,55 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="Task Manager" Height="450" Width="800">
+
+ 
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color="Aqua" Offset="0"/>
+                <GradientStop Color="DarkGray" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+        <Border >
+            <Border 
+    BorderThickness="2"
+    Opacity="0.95"  >
+
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#462AD8" Offset="0"/>
+                        <GradientStop Color="#DA34AE" Offset="0.75"/>
+                        <GradientStop Color="#8A16C1" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color="DarkBlue" Offset="0"/>
+                        <GradientStop Color="Purple" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+
+        </Border>
+        
         <Grid Grid.Row="0">
-            <ListView x:Name="items" ItemsSource="{Binding  ProcessList}">
+            <ListView x:Name="items" ItemsSource="{Binding ProcessList}">
+                <ListView.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color="Aqua" Offset="0"/>
+                        <GradientStop Color="DarkGray" Offset="1"/>
+                    </LinearGradientBrush>
+                </ListView.Background>
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="150" Header="Name" DisplayMemberBinding="{Binding ProcessName}" />
@@ -22,10 +62,12 @@
                 </ListView.View>
             </ListView>
         </Grid>
+
+    
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <TextBox x:Name="t1" Foreground="Black" Margin="10" Width="120" />
-            <Button x:Name="create" Width="120" Margin="10" Content="Create process" Click="Create_Click" />
-            <Button Name="end" Width="120" Margin="10" Content="End prc" Click="End_Click" />
+            <Button Background="LightBlue" x:Name="create" Width="120" Margin="10" Content="Create process" Click="Create_Click" />
+            <Button Background="Olive" Name="end" Width="120" Margin="10" Content="End prc" Click="End_Click" />
         </StackPanel>
     </Grid>
 </Window>

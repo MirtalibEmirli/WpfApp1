@@ -31,7 +31,6 @@ namespace WpfApp1
             var paints = Process.GetProcesses();
             ProcessList = new ObservableCollection<Process>(paints);
             DataContext = this;
-            var p = new Process();
           
         }
 
@@ -40,15 +39,55 @@ namespace WpfApp1
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-          Process.Start(t1.Text);
+            try
+            {
+                 
+                Process process = Process.Start(t1.Text);
+
+                
+                if (process != null)
+                {
+                    ProcessList.Add(process);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
 
         }
 
         private void End_Click(object sender, RoutedEventArgs e)
         {
-            
-        }
+            try
+            {
+                Process p = new ();
+                foreach (var item in items.SelectedItems)
+                {
+                    var process = item as Process;
 
+                    if (process != null)
+                    {
+                        if (process.SessionId == Process.GetCurrentProcess().SessionId)
+                        {
+                            process.Kill();
+                            p = process;
+                        }
+                        else
+                        {
+                            MessageBox.Show($"You cannot terminate this process: {process.ProcessName}");
+                        }
+                    }
+                }
+                ProcessList.Remove(p);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error terminating process: {ex.Message}");
+            }
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
